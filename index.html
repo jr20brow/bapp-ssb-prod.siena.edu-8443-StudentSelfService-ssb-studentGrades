@@ -47,7 +47,7 @@ body {
 .header-logo {
   display: flex;
   align-items: center;
-  height: var(--header-h);
+  height: 32px;
 }
 /* If image exists it shows; fallback to text */
 .header-logo img {
@@ -430,10 +430,10 @@ footer {
         <a class="view-details-link" href="#">View Details</a>
       </div>
       <div class="gpa-values">
-        <div class="gpa-col"><span class="gpa-num">1.23</span><span class="gpa-lbl">Selected Term</span></div>
-        <div class="gpa-col"><span class="gpa-num">2.08</span><span class="gpa-lbl">Institutional</span></div>
+        <div class="gpa-col"><span class="gpa-num">2.2</span><span class="gpa-lbl">Selected Term</span></div>
+        <div class="gpa-col"><span class="gpa-num">2.48</span><span class="gpa-lbl">Institutional</span></div>
         <div class="gpa-col"><span class="gpa-num">-</span><span class="gpa-lbl">Transfer</span></div>
-        <div class="gpa-col"><span class="gpa-num">2.08</span><span class="gpa-lbl">Overall</span></div>
+        <div class="gpa-col"><span class="gpa-num">2.48</span><span class="gpa-lbl">Overall</span></div>
       </div>
     </div>
 
@@ -493,12 +493,12 @@ footer {
           <td><a class="course-link">Story Matters</a></td>
           <td>M</td>
           <td>F</td>
-          <td><div class="circle-wrap"><span class="circle">F</span></div></td>
+          <td><div class="circle-wrap"><span class="circle">C-</span></div></td>
           <td></td>
           <td class="num">3.000</td>
-          <td class="num">0.000</td>
-          <td class="num">0.000</td>
-          <td class="num">0.00</td>
+          <td class="num">3.000</td>
+          <td class="num">3.000</td>
+          <td class="num">6.30</td>
           <td><a class="crn-link">41714</a></td>
           <td></td>
         </tr>
@@ -521,12 +521,12 @@ footer {
           <td><a class="course-link">Calculus II</a></td>
           <td>M</td>
           <td>F</td>
-          <td><div class="circle-wrap"><span class="circle">F</span></div></td>
+          <td><div class="circle-wrap"><span class="circle">D-</span></div></td>
           <td></td>
           <td class="num">4.000</td>
-          <td class="num">0.000</td>
-          <td class="num">0.000</td>
-          <td class="num">0.00</td>
+          <td class="num">4.000</td>
+          <td class="num">4.000</td>
+          <td class="num">5.00</td>
           <td><a class="crn-link">42086</a></td>
           <td></td>
         </tr>
@@ -535,12 +535,12 @@ footer {
           <td><a class="course-link">Philosophy and Race</a></td>
           <td>M</td>
           <td>F</td>
-          <td><div class="circle-wrap"><span class="circle">F</span></div></td>
+          <td><div class="circle-wrap"><span class="circle">D</span></div></td>
           <td></td>
           <td class="num">3.000</td>
-          <td class="num">0.000</td>
           <td class="num">3.000</td>
-          <td class="num">0.00</td>
+          <td class="num">3.000</td>
+          <td class="num">7.90</td>
           <td><a class="crn-link">42196</a></td>
           <td></td>
         </tr>
@@ -549,12 +549,12 @@ footer {
           <td><a class="course-link">Ethics of Science &amp; Technology</a></td>
           <td>M</td>
           <td></td>
-          <td><div class="circle-wrap"><span class="circle">F</span></div></td>
+          <td><div class="circle-wrap"><span class="circle">A</span></div></td>
           <td></td>
           <td class="num">3.000</td>
-          <td class="num">0.000</td>
           <td class="num">3.000</td>
-          <td class="num">0.00</td>
+          <td class="num">3.000</td>
+          <td class="num">12.00</td>
           <td><a class="crn-link">42198</a></td>
           <td></td>
         </tr>
@@ -578,9 +578,12 @@ footer {
       if (tried >= exts.length) return; // keep fallback text
       var img = new Image();
       img.onload = function() {
-        logoEl.innerHTML = '';
-        logoEl.appendChild(img);
-      };
+  img.style.height = '15px';
+  img.style.width = 'auto';
+  img.style.display = 'block';
+  logoEl.innerHTML = '';
+  logoEl.appendChild(img);
+};
       img.onerror = function() {
         tried++;
         tryNext();
