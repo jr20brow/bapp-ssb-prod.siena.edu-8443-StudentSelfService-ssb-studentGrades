@@ -365,6 +365,173 @@ td.num {
 }
 .crn-link:hover { text-decoration: underline; }
 
+/* ── GPA MODAL OVERLAY ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.open {
+  display: flex;
+}
+.modal {
+  background: var(--white);
+  border-radius: 4px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+  width: 780px;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  font-family: var(--font);
+  animation: modalIn 0.15s ease;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 2px solid var(--gold);
+}
+.modal-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--green);
+  font-family: var(--font);
+}
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--text-muted);
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 3px;
+  transition: color 0.1s, background 0.1s;
+}
+.modal-close:hover { color: var(--text); background: var(--bg); }
+.modal-body {
+  padding: 18px 20px 22px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+@media (max-width: 600px) {
+  .modal-body { grid-template-columns: 1fr 1fr; }
+}
+.gpa-detail-card {
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 12px 14px;
+  background: var(--white);
+}
+.gpa-detail-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font);
+}
+.info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-muted);
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: default;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.gpa-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 12px;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--border-light);
+  font-family: var(--font);
+  gap: 8px;
+}
+.gpa-detail-row:last-child { border-bottom: none; }
+.gpa-detail-label {
+  color: var(--text);
+  font-size: 12px;
+}
+/* GPA label has underline dotted like original */
+.gpa-detail-label.gpa-abbr {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  cursor: help;
+}
+.gpa-detail-value {
+  color: var(--text);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ── CURRICULUM MODAL SPECIFIC ── */
+.curr-modal-body {
+  padding: 20px 24px 26px;
+}
+.curr-modal-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 14px;
+  font-family: var(--font);
+}
+.curr-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 18px;
+}
+.curr-detail-table tr {
+  border-bottom: 1px solid var(--border-light);
+}
+.curr-detail-table tr:last-child {
+  border-bottom: none;
+}
+.curr-detail-table td {
+  padding: 9px 12px;
+  font-size: 13px;
+  font-family: var(--font);
+  vertical-align: middle;
+}
+.curr-detail-table td:first-child {
+  color: var(--text);
+  font-weight: 400;
+  width: 42%;
+  background: var(--white);
+}
+.curr-detail-table td:last-child {
+  color: var(--text-muted);
+  background: var(--white);
+}
+.curr-major-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text);
+  padding-top: 6px;
+  font-family: var(--font);
+}
+
 /* ── FOOTER ── */
 footer {
   text-align: center;
@@ -427,7 +594,7 @@ footer {
     <div class="gpa-card">
       <div class="card-header-row">
         <span class="card-title">GPA Summary</span>
-        <a class="view-details-link" href="#">View Details</a>
+        <a class="view-details-link" href="#" onclick="openGpaModal(event)">View Details</a>
       </div>
       <div class="gpa-values">
         <div class="gpa-col"><span class="gpa-num">2.2</span><span class="gpa-lbl">Selected Term</span></div>
@@ -440,7 +607,7 @@ footer {
     <div class="curr-card">
       <div class="card-header-row">
         <span class="card-title">Primary Curriculum</span>
-        <a class="view-details-link" href="#">View Details</a>
+        <a class="view-details-link" href="#" onclick="openCurrModal(event)">View Details</a>
       </div>
       <div class="curr-row"><span class="curr-label">Level :</span><span class="curr-value">Undergraduate</span></div>
       <div class="curr-row"><span class="curr-label">College :</span><span class="curr-value">School of Science</span></div>
@@ -564,6 +731,175 @@ footer {
 
 </div><!-- /#content -->
 
+<!-- GPA DETAILS MODAL -->
+<div class="modal-overlay" id="gpaModal" onclick="closeGpaModal(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">GPA Summary</span>
+      <button class="modal-close" onclick="closeGpaModalDirect()" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Selected Term -->
+      <div class="gpa-detail-card">
+        <div class="gpa-detail-card-title">
+          Selected Term
+          <span class="info-icon" title="Term GPA by institutional course work for the selected level.">i</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">Attempted Hours :</span>
+          <span class="gpa-detail-value">16.000</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">Earned Hours :</span>
+          <span class="gpa-detail-value">16.000</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">GPA Hours :</span>
+          <span class="gpa-detail-value">16.000</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">Quality Points :</span>
+          <span class="gpa-detail-value">35.30</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label gpa-abbr" title="Grade Point Average">GPA :</span>
+          <span class="gpa-detail-value">2.20</span>
+        </div>
+      </div>
+
+      <!-- Institutional -->
+      <div class="gpa-detail-card">
+        <div class="gpa-detail-card-title">
+          Institutional
+          <span class="info-icon" title="Cumulative GPA of Institutional course work for the selected level.">i</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">Attempted Hours :</span>
+          <span class="gpa-detail-value">100.000</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">Earned Hours :</span>
+          <span class="gpa-detail-value">54.000</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">GPA Hours :</span>
+          <span class="gpa-detail-value">82.000</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">Quality Points :</span>
+          <span class="gpa-detail-value">171.20</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label gpa-abbr" title="Grade Point Average">GPA :</span>
+          <span class="gpa-detail-value">2.48</span>
+        </div>
+      </div>
+
+      <!-- Transfer -->
+      <div class="gpa-detail-card">
+        <div class="gpa-detail-card-title">
+          Transfer
+          <span class="info-icon" title="Transfer GPA for the selected level.">i</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">Attempted Hours :</span>
+          <span class="gpa-detail-value">—</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">Earned Hours :</span>
+          <span class="gpa-detail-value">—</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">GPA Hours :</span>
+          <span class="gpa-detail-value">—</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">Quality Points :</span>
+          <span class="gpa-detail-value">—</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label gpa-abbr" title="Grade Point Average">GPA :</span>
+          <span class="gpa-detail-value">—</span>
+        </div>
+      </div>
+
+      <!-- Overall -->
+      <div class="gpa-detail-card">
+        <div class="gpa-detail-card-title">
+          Overall
+          <span class="info-icon" title="Overall GPA for the selected level.">i</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">Attempted Hours :</span>
+          <span class="gpa-detail-value">100.000</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">Earned Hours :</span>
+          <span class="gpa-detail-value">54.000</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">GPA Hours :</span>
+          <span class="gpa-detail-value">82.000</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label">Quality Points :</span>
+          <span class="gpa-detail-value">171.20</span>
+        </div>
+        <div class="gpa-detail-row">
+          <span class="gpa-detail-label gpa-abbr" title="Grade Point Average">GPA :</span>
+          <span class="gpa-detail-value">2.48</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- CURRICULUM DETAILS MODAL -->
+<div class="modal-overlay" id="currModal" onclick="closeCurrModal(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="currModalTitle" style="width:520px;">
+    <div class="modal-header">
+      <span class="modal-title" id="currModalTitle">Curriculum Details</span>
+      <button class="modal-close" onclick="closeCurrModalDirect()" aria-label="Close">&times;</button>
+    </div>
+    <div class="curr-modal-body">
+      <div class="curr-modal-section-title">Primary Curriculum</div>
+      <table class="curr-detail-table">
+        <tr>
+          <td>Level</td>
+          <td>Undergraduate</td>
+        </tr>
+        <tr>
+          <td>College</td>
+          <td>School of Science</td>
+        </tr>
+        <tr>
+          <td>Degree</td>
+          <td>Bachelor of Science</td>
+        </tr>
+        <tr>
+          <td>Program</td>
+          <td>Computer Science, B.S.</td>
+        </tr>
+        <tr>
+          <td>Catalog Term</td>
+          <td>Fall 2023</td>
+        </tr>
+        <tr>
+          <td>Admit Term</td>
+          <td>Fall 2023</td>
+        </tr>
+        <tr>
+          <td>Admit Type</td>
+          <td>Regular Admission</td>
+        </tr>
+      </table>
+      <div class="curr-major-title">Comp Sci Software Development - Major</div>
+    </div>
+  </div>
+</div>
+
 <footer>
   © 2013–2025 Ellucian Company L.P. and its affiliates. All rights reserved.
 </footer>
@@ -674,6 +1010,50 @@ footer {
 
   // Initial stripe
   restripe();
+
+  /* ── GPA MODAL ── */
+  function openGpaModal(e) {
+    e.preventDefault();
+    document.getElementById('gpaModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeGpaModalDirect() {
+    document.getElementById('gpaModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeGpaModal(e) {
+    // Only close if clicking the overlay itself, not the modal content
+    if (e.target === document.getElementById('gpaModal')) {
+      closeGpaModalDirect();
+    }
+  }
+
+  function openCurrModal(e) {
+    e.preventDefault();
+    document.getElementById('currModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCurrModalDirect() {
+    document.getElementById('currModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeCurrModal(e) {
+    if (e.target === document.getElementById('currModal')) {
+      closeCurrModalDirect();
+    }
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeGpaModalDirect();
+      closeCurrModalDirect();
+    }
+  });
 </script>
 
 </body>
